@@ -87,30 +87,46 @@ def motorControlCallback(req):
 	if(req.action == 'forward'):
 		Ab.forward()
 		rospy.loginfo(rospy.get_caller_id() + ': forward')
-		return String('forward')
+		return MotorResponse('forward')
+		#res.ack = 'forward'
+		#return res
 	elif(req.action == 'left'):
 		Ab.left()
 		rospy.loginfo(rospy.get_caller_id() + ': left')
-		return String('left')
+		res = MotorResponse()
+		res.ack = 'left'
+		return res
 	elif(req.action == 'right'):
 		Ab.right()
 		rospy.loginfo(rospy.get_caller_id() + ': right')
-		return String('right')
+		res = MotorResponse()
+		res.ack = 'right'
+		return res
 	elif(req.action == 'backward'):
+		rospy.loginfo(rospy.get_caller_id() + ': backward')
 		Ab.backward()
 		time.sleep(0.2)
 		Ab.left()
 		time.sleep(0.2)
 		Ab.stop()
-		return String('backward')
+		res = MotorResponse()
+		res.ack = 'backward'
+		return res
 	elif(req.action == 'stop'):
 		Ab.stop()
 		rospy.loginfo(rospy.get_caller_id() + ': stop')
-		return String('stop')
+		res = MotorResponse()
+		res.ack = 'stop'
+		return res
+	else:
+		res = MotorResponse()
+		res.ack = 'error: no such action: '+req.action
+		return res
+		
 
 def motorController():	
-	rospy.init_node('motorController')
-	s = rospy.Service( 'motorService', Motor, motorController )
+	rospy.init_node('motorServer')
+	rospy.Service( 'motorService', Motor, motorControlCallback )
 	rospy.spin()
 
 if __name__ == '__main__':

@@ -1,27 +1,30 @@
 #!/usr/bin/env python
 
-import RPi.GPIO as GPIO
-import time
-
 import rospy
 from std_msgs.msg import String
 
-DR = 16
-DL = 19
+import RPi.GPIO as GPIO
+import time
 
-def DRcallback(self):
-	DR_status = GPIO.input(DR)
-	DL_status = GPIO.input(DL)
-	rospy.loginfo(DR_status)+" "+str(DL_status) 
-	self.pub.publish( str(DR_status)+" "+str(DL_status) )
+class frontIR_t(object):
+	def DRcallback(self, dr, dl, pub):	
+		DR_status = GPIO.input(dr)
+		DL_status = GPIO.input(dl)
+		if not rospy.is_shutdown():	
+			rospy.loginfo(str(DR_status)+" "+str(DL_status) )
+			pub.publish( str(DR_status)+" "+str(DL_status) )
+	
+	def DLcallback(self, dr, dl, pub):
+		DR_status = GPIO.input(dr)
+		DL_status = GPIO.input(dl)
+		if not rospy.is_shutdown():	
+			rospy.loginfo(str(DR_status)+" "+str(DL_status) )
+			pub.publish( str(DR_status)+" "+str(DL_status) )
+	
+	def setCallback(self, dr, dl, pub):
+		GPIO.add_event_detect(self.DR, GPIO.BOTH, callback = lambda *a: self.DRcallback(dr, dl, pub))
+		GPIO.add_event_detect(self.DL, GPIO.BOTH, callback = lambda *a: self.DLcallback(dr, dl, pub))
 
-def DLcallback(self):
-	DR_status = GPIO.input(DR)
-	DL_status = GPIO.input(DL)
-	rospy.loginfo(DR_status)+" "+str(DL_status) 
-	self.pub.publish( str(DR_status)+" "+str(DL_status) )
-
-class frontIR(object):
 	def __init__(self, dr=16, dl=19):
 		self.DR = dr
 		self.DL = dl
@@ -30,16 +33,14 @@ class frontIR(object):
 		GPIO.setwarnings(False)
 		GPIO.setup(self.DR, GPIO.IN, GPIO.PUD_UP)
 		GPIO.setup(self.DL, GPIO.IN, GPIO.PUD_UP)
-		
-		self.pub = rospy.Publisher('frontIR', String, queue_size=10)
-		rospy.init_node('frontIR', anonymous=True)
 
+    		pub = rospy.Publisher('frontIR', String, queue_size=10)
+    		rospy.init_node('frontIR', anonymous=True)
 
-	def setCallback(self):
-		GPIO.add_event_detect(self.DR, GPIO.BOTH, callback = DRcallback)
-		GPIO.add_event_detect(self.DL, GPIO.BOTH, callback = DLcallback)
+		self.setCallback(dr, dl, pub)
+
 
 if __name__ == '__main__':
-	frontIR()
+	frontIR_t()
 	while(1):
 		time.sleep(10)
