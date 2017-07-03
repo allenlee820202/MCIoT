@@ -9,9 +9,10 @@ libopencv-dev
 
 ## Workflow
 
-  ---------------------------         ----------------------        ---------------------------------------------------------------- 
-  | Picamera takes a picture | -----> | April tag detector | -----> | object ID and its location (represented using pixel position) |
-  ---------------------------         ---------------------         ----------------------------------------------------------------
+1. Picamera takes a picture
+2. April tag detector detects April tags in the picture
+3. Output object ID and its location (represented using pixel position)
+ 
 
 ## Usage
 
