@@ -449,7 +449,7 @@ public:
     for (list<string>::iterator it=m_imgNames.begin(); it!=m_imgNames.end(); it++) {
       image = cv::imread(*it); // load image with opencv
       processImage(image, image_gray);
-      while (cv::waitKey(100) == -1) {}
+      // while (cv::waitKey(100) == -1) {}
     }
   }
 
