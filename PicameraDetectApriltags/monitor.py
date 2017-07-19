@@ -40,19 +40,32 @@ class Monitor_t(object):
 		else:
 			print 'nothing detected'
 
+	def getPids(self):
+		if len( self.mark ) < 3:
+			print "Not enough mark detected"
+			return ''
+		else:
+			pids = []
+			for tid, o in self.config.iteritems():
+				pids.append(tid)
+			return pids
+
 	def calculating_coordinations(self):
 		# initialization phase
 		# in user specified coordinations of marks
-		m0 = self.config["0"]
-		m1 = self.config["1"]
-		m2 = self.config["2"]
+		pids = self.getPids()
+		if pids=='' :
+			return
+		m0 = self.config[pids[0]]
+		m1 = self.config[pids[1]]
+		m2 = self.config[pids[2]]
 		w1 = np.subtract(m1,m0).tolist()
 		w2 = np.subtract(m2,m0).tolist()
 		# in pixel coordination
 		# print self.mark["0"]
-		t0 = self.mark["0"] # choose origin point
-		t1 = self.mark["1"] # choose origin point
-		t2 = self.mark["2"] # choose origin point
+		t0 = self.mark[pids[0]] # choose origin point
+		t1 = self.mark[pids[1]] # choose origin point
+		t2 = self.mark[pids[2]] # choose origin point
 		v1 = np.subtract(t1, t0).tolist()
 		v2 = np.subtract(t2, t0).tolist()
 		# print v1, v2
