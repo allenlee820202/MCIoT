@@ -14,7 +14,7 @@ libopencv-dev
 3. All objects to be located also have AprilTags on it
 
 ## Workflow
-
+![alt text](https://github.com/allenlee820202/MCIoT/blob/master/PicameraDetectApriltags/workflow.png "Logo Title Text 1")
 1. Picamera takes a picture. Each picture must contain at least three marks to successfully detects the location of an object. 
 2. April tag detector detects April tags in the picture
 3. Transform the pixel coordination of objects into user-defined coordination by linear algebra calculation (change of basis)
