@@ -8,7 +8,7 @@
 libopencv-dev
 
 ## Environment setup
-
+![alt text](https://github.com/allenlee820202/MCIoT/blob/master/PicameraDetectApriltags/experiment%20setup.png "Logo Title Text 1")
 1. Picamera is located on the ceiling or the wall, which can take shots of the marks and AGVs
 2. There are several “marks” which is deployed by the user. The location of the mark is predefined by the user
 3. All objects to be located also have AprilTags on it
