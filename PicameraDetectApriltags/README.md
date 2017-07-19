@@ -1,4 +1,4 @@
-# Detecting objects in the photo using AprilTags 
+# Detecting and localizing objects in the photo using AprilTags 
 
 ## Sources
   [April Tags C++ Library](http://people.csail.mit.edu/kaess/apriltags/)
