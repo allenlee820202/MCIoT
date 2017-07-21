@@ -114,5 +114,5 @@ class Monitor_t(object):
 if __name__ == '__main__':
 	monitor = Monitor_t()
 	monitor.start()
-	time.sleep(5)
+	time.sleep(60)
 	monitor.stop()

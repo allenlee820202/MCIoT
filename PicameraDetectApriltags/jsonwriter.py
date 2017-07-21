@@ -3,7 +3,7 @@ import json
 data = {
 	'0':'(0, 0)',
 	'1':'(0, 10)',
-	'2':'(20, 0)'
+	'2':'(10, 0)'
 } 
 
 json_str = json.dumps(data)
